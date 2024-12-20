@@ -7,7 +7,7 @@ use wgpu::{
     TextureView, TextureViewDescriptor,
 };
 
-use crate::WGPUApp;
+use crate::Window;
 
 #[derive(Debug)]
 pub struct Texture {
@@ -45,7 +45,7 @@ impl Texture {
             ch => panic!("Invalid number of channels: {ch}"),
         };
 
-        let device = WGPUApp::device();
+        let device = Window::device();
 
         let texture = device.create_texture(&TextureDescriptor {
             label: label.into(),
@@ -58,7 +58,7 @@ impl Texture {
             view_formats: &[],
         });
 
-        WGPUApp::queue().write_texture(
+        Window::queue().write_texture(
             ImageCopyTexture {
                 aspect:    TextureAspect::All,
                 texture:   &texture,
